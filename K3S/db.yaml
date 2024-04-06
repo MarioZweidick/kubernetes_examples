@@ -24,15 +24,19 @@ spec:
               name: mysql
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
-  name: mysql-pv-claim
+  name: mysql-pv
 spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  local:
+    path: /mnt/data/mysql
 
 ---
 apiVersion: v1
